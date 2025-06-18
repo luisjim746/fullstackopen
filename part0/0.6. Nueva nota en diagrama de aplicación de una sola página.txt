@@ -1,0 +1,20 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: User writes a note and clicks ‘Save’
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+        with JSON: {"content":"My new note","date":"2025-06-18"}
+    activate server
+    server-->>browser: 201 Created (or JSON of the new note)
+    deactivate server
+
+    Note right of browser: JS handles the response
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: JSON with all notes (including the new one)
+    deactivate server
+
+    Note right of browser: App updates the DOM to show the new note
